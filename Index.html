@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sri Lanka Health System Review · Interactive Companion (Updated 2025)</title>
+<meta name="description" content="Interactive companion to the WHO Health Systems in Transition (HiT) profile of Sri Lanka — updated with 2024-2025 data." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f6f1e7;
+  --bg-2:#efe7d5;
+  --ink:#15201a;
+  --ink-soft:#3b4a40;
+  --muted:#6b7a6f;
+  --line:#d6cdba;
+  --paper:#fbf7ed;
+  --teal:#0e5a55;
+  --teal-deep:#063b38;
+  --rust:#b04a1f;
+  --ochre:#c89322;
+  --leaf:#3a6b3a;
+  --crimson:#8a1c2b;
+  --shadow:0 1px 0 rgba(20,30,25,.06), 0 8px 30px -12px rgba(20,30,25,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(14,90,85,.04), transparent 35%),
+    radial-gradient(circle at 88% 92%, rgba(176,74,31,.05), transparent 40%);
+}
+.serif{font-family:'Fraunces',Georgia,serif;font-feature-settings:"ss01","ss02"}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(246,241,231,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;gap:18px;
+  padding:10px 22px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Fraunces';font-weight:700;font-size:17px;
+  letter-spacing:-.01em;
+}
+.brand .dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--rust);
+  box-shadow:0 0 0 3px rgba(176,74,31,.18);
+}
+.nav-links{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{
+  font-size:13px;font-weight:500;color:var(--ink-soft);
+  text-decoration:none;padding:6px 10px;border-radius:6px;
+  transition:.2s;
+}
+.nav-links a:hover{background:var(--bg-2);color:var(--teal)}
+.tool-btns{display:flex;gap:6px;margin-left:8px}
+.btn{
+  font-family:inherit;font-size:13px;font-weight:500;
+  padding:7px 12px;border:1px solid var(--line);
+  background:var(--paper);color:var(--ink);
+  border-radius:6px;cursor:pointer;transition:.15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.btn.primary:hover{background:var(--teal-deep);border-color:var(--teal-deep)}
+#searchBox{
+  font-family:inherit;font-size:13px;
+  padding:7px 12px;border:1px solid var(--line);
+  background:var(--paper);border-radius:6px;
+  width:200px;color:var(--ink);
+}
+#searchBox:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,90,85,.12)}
+
+/* ===== UPDATE BANNER ===== */
+.update-banner{
+  background:linear-gradient(90deg, rgba(14,90,85,.08), rgba(176,74,31,.06));
+  border-bottom:1px solid var(--line);
+  padding:10px 22px;
+  font-size:13px;
+  color:var(--ink-soft);
+  text-align:center;
+}
+.update-banner strong{color:var(--teal)}
+.update-banner .update-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--leaf);margin-right:6px;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== LAYOUT ===== */
+main{max-width:1400px;margin:0 auto;padding:0 22px 80px}
+
+/* ===== HERO ===== */
+.hero{
+  padding:60px 0 36px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.hero .eyebrow{
+  text-transform:uppercase;letter-spacing:.18em;
+  font-size:11px;font-weight:600;color:var(--rust);
+  margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Fraunces';font-weight:700;
+  font-size:clamp(40px,6vw,72px);line-height:1;
+  letter-spacing:-.02em;
+  margin:0 0 18px;color:var(--ink);
+}
+.hero h1 em{font-style:italic;color:var(--teal);font-weight:400}
+.hero .lede{
+  font-size:18px;max-width:760px;color:var(--ink-soft);
+  line-height:1.55;
+}
+.hero .meta{
+  margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted);
+}
+.hero .meta span strong{color:var(--ink);font-weight:600}
+
+/* ===== KPI STRIP ===== */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;background:var(--line);
+  margin:36px 0 0;border:1px solid var(--line);
+  border-radius:10px;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.kpi{
+  background:var(--paper);padding:18px 18px 16px;
+  cursor:pointer;transition:.2s;position:relative;
+}
+.kpi:hover{background:#fff}
+.kpi .v{
+  font-family:'Fraunces';font-weight:700;
+  font-size:28px;line-height:1;color:var(--teal-deep);
+  letter-spacing:-.01em;
+}
+.kpi .l{
+  font-size:11px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-top:8px;font-weight:600;
+}
+.kpi .sub{font-size:12px;color:var(--ink-soft);margin-top:4px}
+.kpi.accent .v{color:var(--rust)}
+.kpi.accent2 .v{color:var(--leaf)}
+
+/* ===== SECTIONS ===== */
+section.chapter{
+  padding:64px 0 32px;
+  border-bottom:1px solid var(--line);
+  scroll-margin-top:70px;
+}
+.ch-head{
+  display:flex;align-items:baseline;gap:18px;
+  margin-bottom:24px;flex-wrap:wrap;
+}
+.ch-num{
+  font-family:'Fraunces';font-weight:700;
+  font-size:42px;color:var(--rust);
+  line-height:1;letter-spacing:-.02em;
+}
+.ch-title{
+  font-family:'Fraunces';font-weight:700;
+  font-size:38px;line-height:1.05;letter-spacing:-.015em;
+  margin:0;color:var(--ink);
+}
+.ch-tags{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tag{
+  font-size:11px;padding:3px 9px;
+  background:var(--bg-2);border:1px solid var(--line);
+  border-radius:99px;color:var(--ink-soft);
+  font-weight:500;
+}
+.tag.hot{background:rgba(176,74,31,.12);color:var(--rust);border-color:rgba(176,74,31,.25)}
+.tag.new{background:rgba(58,107,58,.12);color:var(--leaf);border-color:rgba(58,107,58,.25)}
+
+.summary-card{
+  background:var(--paper);border:1px solid var(--line);
+  padding:22px 26px;border-radius:10px;
+  margin-bottom:28px;font-size:15px;
+  color:var(--ink-soft);line-height:1.65;
+  box-shadow:var(--shadow);
+}
+.summary-card .label{
+  font-size:11px;text-transform:uppercase;letter-spacing:.12em;
+  font-weight:600;color:var(--rust);margin-bottom:8px;
+}
+
+/* ===== GRID LAYOUTS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-mix{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+@media (max-width:820px){
+  .grid-2,.grid-3,.grid-mix{grid-template-columns:1fr}
+}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:10px;padding:20px;
+  box-shadow:var(--shadow);
+}
+.card h4{
+  font-family:'Fraunces';font-weight:600;
+  font-size:18px;margin:0 0 10px;color:var(--ink);
+  letter-spacing:-.005em;
+}
+.card .desc{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+.card.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.card.dark h4{color:var(--paper)}
+.card.dark .desc{color:rgba(251,247,237,.7)}
+.card.tealtint{background:linear-gradient(180deg,rgba(14,90,85,.06),var(--paper));border-color:rgba(14,90,85,.2)}
+.card.crisis{background:linear-gradient(180deg,rgba(138,28,43,.06),var(--paper));border-color:rgba(138,28,43,.2)}
+
+/* ===== CHARTS ===== */
+.chart-box{position:relative;height:280px;margin-top:8px}
+.chart-box.tall{height:340px}
+.chart-box.short{height:220px}
+
+/* ===== DEEP DIVE (collapsible) ===== */
+details.deep{
+  margin-top:18px;border:1px solid var(--line);
+  border-radius:8px;background:var(--paper);
+}
+details.deep summary{
+  cursor:pointer;padding:12px 18px;
+  font-size:13px;font-weight:600;color:var(--teal);
+  list-style:none;display:flex;align-items:center;justify-content:space-between;
+}
+details.deep summary::-webkit-details-marker{display:none}
+details.deep summary::after{content:"+";font-size:18px;color:var(--muted)}
+details.deep[open] summary::after{content:"\2212"}
+details.deep .body{
+  padding:0 18px 18px;font-size:14px;color:var(--ink-soft);
+  line-height:1.65;border-top:1px solid var(--line);padding-top:14px;
+}
+details.deep .body p{margin:0 0 12px}
+details.deep .body strong{color:var(--ink)}
+
+/* ===== TIMELINE ===== */
+.timeline-wrap{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:12px;padding:28px;
+  box-shadow:var(--shadow);
+  overflow-x:auto;
+}
+.timeline{position:relative;min-width:1100px;padding:30px 10px 50px}
+.timeline-axis{
+  position:absolute;left:0;right:0;top:50%;
+  height:2px;background:linear-gradient(90deg,var(--teal),var(--rust));
+  transform:translateY(-50%);
+}
+.tl-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tl-event{
+  flex:1;text-align:center;position:relative;
+  cursor:pointer;padding:8px 4px;
+}
+.tl-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--teal);
+  margin:0 auto 8px;position:relative;z-index:2;
+  transition:.2s;
+}
+.tl-event:hover .tl-dot{background:var(--rust);border-color:var(--rust);transform:scale(1.3)}
+.tl-event.active .tl-dot{background:var(--rust);border-color:var(--rust);transform:scale(1.3)}
+.tl-year{
+  font-family:'JetBrains Mono';font-size:12px;font-weight:600;
+  color:var(--ink);margin-bottom:4px;
+}
+.tl-label{font-size:11px;color:var(--ink-soft);line-height:1.3}
+.tl-detail{
+  margin-top:24px;padding:18px 22px;
+  background:var(--bg-2);border-radius:8px;
+  border-left:4px solid var(--rust);
+  font-size:14px;line-height:1.65;color:var(--ink-soft);
+  min-height:60px;
+}
+.tl-detail h5{
+  font-family:'Fraunces';font-size:18px;margin:0 0 8px;
+  color:var(--ink);font-weight:600;
+}
+
+/* ===== CONCEPT MAP ===== */
+.concept-wrap{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:12px;padding:18px;
+  box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+#conceptSvg{display:block;width:100%;height:auto;cursor:grab}
+.cm-legend{
+  display:flex;gap:18px;flex-wrap:wrap;
+  margin-top:10px;padding-top:14px;
+  border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-soft);
+}
+.cm-legend span{display:inline-flex;align-items:center;gap:6px}
+.cm-legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+/* ===== TABLES ===== */
+table.data{
+  width:100%;border-collapse:collapse;font-size:13px;
+  background:var(--paper);
+}
+table.data th{
+  text-align:left;padding:10px 12px;
+  background:var(--bg-2);font-weight:600;
+  color:var(--ink);border-bottom:1px solid var(--line);
+  font-size:12px;text-transform:uppercase;letter-spacing:.04em;
+}
+table.data td{
+  padding:9px 12px;border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+}
+table.data tr:hover{background:rgba(14,90,85,.04)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin-top:8px}
+
+/* ===== HIGHLIGHT (search) ===== */
+.hl{background:rgba(200,147,34,.4);padding:0 2px;border-radius:2px}
+
+/* ===== LINKS ===== */
+.linklist{display:grid;gap:8px}
+.linklist a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px;background:var(--paper);
+  border:1px solid var(--line);border-radius:8px;
+  font-size:13px;color:var(--ink);text-decoration:none;
+  transition:.15s;
+}
+.linklist a:hover{border-color:var(--teal);background:#fff;color:var(--teal)}
+.linklist a::after{content:"\2197";font-size:14px;color:var(--muted)}
+.linklist a:hover::after{color:var(--teal)}
+
+/* ===== STAT GRID INLINE ===== */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:10px}
+.stat{padding:12px;background:var(--bg-2);border-radius:6px;text-align:center}
+.stat .n{font-family:'Fraunces';font-size:22px;font-weight:700;color:var(--teal-deep);line-height:1}
+.stat .t{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+
+/* ===== FACT BLOCK ===== */
+.fact{
+  display:flex;gap:16px;align-items:start;
+  padding:16px;background:rgba(14,90,85,.05);
+  border-left:3px solid var(--teal);border-radius:0 8px 8px 0;
+  margin:14px 0;
+}
+.fact .big{
+  font-family:'Fraunces';font-weight:700;
+  font-size:38px;color:var(--teal-deep);line-height:1;
+  flex-shrink:0;letter-spacing:-.02em;
+}
+.fact .txt{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.fact .txt strong{color:var(--ink)}
+.fact.warn{background:rgba(138,28,43,.05);border-left-color:var(--crimson)}
+.fact.warn .big{color:var(--crimson)}
+
+/* ===== RANDOM FACT MODAL ===== */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(15,25,20,.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:20px;backdrop-filter:blur(6px);
+}
+.modal-bg.show{display:flex}
+.modal{
+  background:var(--paper);border-radius:14px;
+  max-width:560px;width:100%;padding:32px;
+  box-shadow:0 20px 80px rgba(0,0,0,.3);
+  position:relative;border:1px solid var(--line);
+}
+.modal h3{
+  font-family:'Fraunces';font-size:24px;margin:0 0 4px;
+  color:var(--ink);letter-spacing:-.01em;
+}
+.modal .modal-chip{
+  display:inline-block;font-size:11px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--rust);font-weight:600;
+  margin-bottom:14px;
+}
+.modal .modal-body{font-size:15px;color:var(--ink-soft);line-height:1.65}
+.modal .modal-close{
+  position:absolute;top:14px;right:18px;
+  background:none;border:none;font-size:24px;
+  cursor:pointer;color:var(--muted);line-height:1;
+}
+.modal .modal-actions{
+  margin-top:20px;display:flex;gap:8px;justify-content:flex-end;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:40px 22px;text-align:center;
+  color:var(--muted);font-size:12px;
+  border-top:1px solid var(--line);
+  max-width:1400px;margin:0 auto;
+}
+footer a{color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--line)}
+
+/* ===== UTILITY ===== */
+.no-match{display:none !important}
+.print-only{display:none}
+@media print{
+  .topbar,.tool-btns,#searchBox,.modal-bg,.update-banner{display:none !important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span>HiT &middot; Sri Lanka <span style="font-weight:400;color:var(--muted)">Updated 2025</span></div>
+    <nav class="nav-links">
+      <a href="#ch1">Context</a>
+      <a href="#ch2">Governance</a>
+      <a href="#ch3">Financing</a>
+      <a href="#ch4">Resources</a>
+      <a href="#ch5">Services</a>
+      <a href="#ch6">Reforms</a>
+      <a href="#ch7">Assessment</a>
+      <a href="#ch8">Conclusions</a>
+      <a href="#concept">Map</a>
+      <a href="#links">Links</a>
+    </nav>
+    <div class="tool-btns">
+      <input type="search" id="searchBox" placeholder="Search&hellip;" />
+      <button class="btn" id="randomBtn" title="Surface a random concept">&#x27F3; Random</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ UPDATE BANNER ============ -->
+<div class="update-banner">
+  <span class="update-dot"></span><strong>Updated May 2025</strong> &mdash; Data refreshed with Census 2024, Annual Health Bulletin 2024, WHO GHED 2023, STEPS 2021, and post-crisis recovery indicators. Original WHO HiT published June 2021.
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="eyebrow">Health Systems in Transition &middot; Updated Interactive Companion &middot; 2025</div>
+  <h1>The Sri Lanka<br/><em>Health System</em>, in recovery.</h1>
+  <p class="lede">
+    A country of <strong>21.78 million</strong> people, now with a <strong>shrinking population</strong> and the fastest-ageing demographic in South Asia. After surviving a devastating economic collapse (2022&ndash;2023) that triggered medicine shortages and an unprecedented medical brain drain, Sri Lanka's health system is navigating a fragile recovery. This page updates the 2021 WHO HiT profile with the latest 2024&ndash;2025 data from the Census of Population and Housing 2024, the Ministry of Health's Annual Health Bulletin 2024, WHO GHED, and other authoritative sources.
+  </p>
+  <div class="meta">
+    <span><strong>Original:</strong> Rajapaksa L et al., WHO HiT Vol 10 No 1, 2021</span>
+    <span><strong>Update sources:</strong> Census 2024, AHB 2024, WHO GHED, STEPS 2021, WB, UNICEF</span>
+    <span><strong>Data vintage:</strong> 2019&ndash;2024 (varies by indicator)</span>
+    <span><strong>Licence:</strong> CC BY-NC-SA 3.0 IGO</span>
+  </div>
+
+  <!-- KPI strip -->
+  <div class="kpi-strip">
+    <div class="kpi" onclick="location.hash='#ch1'">
+      <div class="v">21.78M</div><div class="l">Population (2024)</div>
+      <div class="sub">Census 2024; growth -0.55%</div>
+    </div>
+    <div class="kpi" onclick="location.hash='#ch1'">
+      <div class="v">12.6%</div><div class="l">Aged 65+</div>
+      <div class="sub">Up from 10.8% in 2019</div>
+    </div>
+    <div class="kpi accent" onclick="location.hash='#ch1'">
+      <div class="v">75%</div><div class="l">Deaths from NCDs</div>
+      <div class="sub">IHD 12.3%, cancer 9.1%</div>
+    </div>
+    <div class="kpi" onclick="location.hash='#ch1'">
+      <div class="v">77.7</div><div class="l">Life expectancy</div>
+      <div class="sub">Women live ~7 yrs longer</div>
+    </div>
+    <div class="kpi accent2" onclick="location.hash='#ch3'">
+      <div class="v">1.24%</div><div class="l">Govt health spend</div>
+      <div class="sub">% of GDP (2023); crisis low</div>
+    </div>
+    <div class="kpi" onclick="location.hash='#ch3'">
+      <div class="v">40%</div><div class="l">OOP share of CHE</div>
+      <div class="sub">Down from 50%+; 2022</div>
+    </div>
+    <div class="kpi accent2" onclick="location.hash='#ch4'">
+      <div class="v">1,208</div><div class="l">Health institutions</div>
+      <div class="sub">90,240 beds (4.0/1,000)</div>
+    </div>
+    <div class="kpi" onclick="location.hash='#ch4'">
+      <div class="v">1,489</div><div class="l">Doctors emigrated</div>
+      <div class="sub">2022&ndash;2024; crisis exodus</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 1: INTRODUCTION ============ -->
+<section class="chapter" id="ch1" data-keywords="introduction context demography geography economy population ageing NCD risk DALY mortality life expectancy diabetes hypertension economic crisis">
+  <div class="ch-head">
+    <div class="ch-num">01</div>
+    <h2 class="ch-title">Context &amp; Health Status</h2>
+    <div class="ch-tags">
+      <span class="tag">demography</span>
+      <span class="tag">economy</span>
+      <span class="tag hot">NCD burden</span>
+      <span class="tag new">crisis impact</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    Sri Lanka is an island of <strong>21.78 million</strong> (Census 2024), multiethnic (Sinhalese 75%, Tamil 15%, Moor 9%), with a <strong>rapidly ageing and now shrinking population</strong> (growth rate -0.55% in 2024). The country remains lower-middle-income after the 2020 downgrade. Life expectancy has risen to <strong>77.7 years</strong> (2024), infant mortality has fallen to <strong>5.3</strong> (2023), and maternal mortality reached a historic low of <strong>25</strong> (2023). But the epidemiological transition has accelerated: NCDs account for <strong>75% of deaths</strong>, diabetes prevalence has <strong>doubled to 14.6%</strong> (STEPS 2021), hypertension affects <strong>34.8%</strong> of adults, and overweight/obesity now exceeds <strong>50%</strong>. The 2022&ndash;2023 economic crisis disrupted medicine supplies and triggered an unprecedented health-worker exodus.
+  </div>
+
+  <div class="grid-mix">
+    <div class="card">
+      <h4>Disease burden by major group</h4>
+      <div class="desc">Deaths per 100,000 &mdash; Group 1 (communicable/maternal/neonatal/nutritional), Group 2 (NCDs), Group 3 (injuries). NCDs dominate ever more heavily; communicable diseases continue falling.</div>
+      <div class="chart-box"><canvas id="ch1_burden"></canvas></div>
+    </div>
+    <div class="card tealtint">
+      <h4>The risk-factor reality (STEPS 2021 update)</h4>
+      <div class="fact"><div class="big">14.6%</div><div class="txt">diabetes prevalence among adults &mdash; <strong>doubled</strong> from 7.4% in STEPS 2015</div></div>
+      <div class="fact"><div class="big">34.8%</div><div class="txt">of adults have <strong>hypertension</strong> (up from ~25%)</div></div>
+      <div class="fact"><div class="big">50.4%</div><div class="txt">of adults are <strong>overweight or obese</strong> (up from ~35%)</div></div>
+      <div class="fact"><div class="big">43.3%</div><div class="txt">of men use <strong>alcohol</strong> (increased from 34.8%)</div></div>
+    </div>
+  </div>
+
+  <div class="grid-mix" style="margin-top:24px">
+    <div class="card">
+      <h4>Top 10 risk factors driving deaths &amp; disability (2007&ndash;2021)</h4>
+      <div class="desc">Bars show % change. High fasting glucose and BMI continue rising fastest. Air pollution and malnutrition are improving.</div>
+      <div class="chart-box tall"><canvas id="ch1_risk"></canvas></div>
+    </div>
+    <div class="card">
+      <h4>Life expectancy trajectory</h4>
+      <div class="desc">LE has reached 77.7 years (2024). Healthy life expectancy (HALE) is 66.7 &mdash; the widening gap signals more years lived with ill health.</div>
+      <div class="chart-box"><canvas id="ch1_le"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card crisis">
+      <h4>The 2022&ndash;2023 economic crisis: health system shock</h4>
+      <div class="fact warn"><div class="big">150+</div><div class="txt">essential medicines out of stock at the peak (Oct 2022), including endotracheal tubes for newborns and dialysis fluid</div></div>
+      <div class="fact warn"><div class="big">500</div><div class="txt">doctors emigrated in just the first 8 months of 2022</div></div>
+      <div class="fact warn"><div class="big">8&ndash;10 hrs</div><div class="txt">daily power cuts forced hospitals to perform surgeries by phone light; fuel shortages reduced ambulance fleets</div></div>
+    </div>
+    <div class="card">
+      <h4>Vital statistics at a glance (latest)</h4>
+      <table class="data" style="margin-top:0;font-size:12px">
+        <tr><th>Indicator</th><th>Value</th><th>Year</th></tr>
+        <tr><td>Crude Birth Rate</td><td>10.1 per 1,000</td><td>2024</td></tr>
+        <tr><td>Crude Death Rate</td><td>7.8 per 1,000</td><td>2024</td></tr>
+        <tr><td>Total Fertility Rate</td><td>1.3 (DCS) / 1.97 (WB)</td><td>2024</td></tr>
+        <tr><td>Infant Mortality Rate</td><td>5.3 per 1,000 live births</td><td>2023</td></tr>
+        <tr><td>Under-5 Mortality Rate</td><td>6.0 per 1,000</td><td>2024</td></tr>
+        <tr><td>Maternal Mortality Ratio</td><td>25 per 100,000</td><td>2023</td></tr>
+        <tr><td>Sex ratio at birth</td><td>93.3 males/100 females</td><td>2024</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; demographic &amp; epidemiological transitions</summary>
+    <div class="body">
+      <p><strong>Population decline.</strong> For the first time in modern history, Sri Lanka's population growth turned negative: -0.55% in 2024 (World Bank). The Census 2024 recorded 21,781,800 persons. The inter-census average annual growth rate fell from 0.7% (2001&ndash;2012) to 0.5% (2012&ndash;2024).</p>
+      <p><strong>Ageing acceleration.</strong> Population over 65 rose from 10.8% (2019) to <strong>12.6%</strong> (Census 2024). Those aged 60+ now represent <strong>18.0%</strong>. Among those aged 80+, 61% are women &mdash; a strongly feminised old age. 45% of those 60+ have at least one NCD.</p>
+      <p><strong>Mortality achievements.</strong> IMR fell from 54.4 (1970) to <strong>5.3</strong> (2023). U5MR from 71.7 to <strong>6.0</strong>. MMR reached a historic low of <strong>25</strong> (2023) but has plateaued after rapid decline. Polio, malaria, filariasis, neonatal tetanus and leprosy &mdash; eliminated or near-eliminated.</p>
+      <p><strong>NCD epidemic.</strong> According to WHO Health at a Glance (2024), of 148,230 total deaths in 2021, 75% were from NCDs. Cardiovascular diseases alone account for <strong>40%+</strong> of all deaths. GLOBOCAN 2022 recorded <strong>33,243 new cancer cases</strong> and 19,145 cancer deaths. Diabetes prevalence has doubled since 2015.</p>
+      <p><strong>COVID-19 impact.</strong> Initial "Zero-COVID" strategy succeeded in 2020 but was abandoned late that year. The Delta wave caused <strong>30,000+ excess deaths</strong>. By March 2022, 95% two-dose vaccination coverage was achieved &mdash; among the highest in the region.</p>
+      <p><strong>Emerging burdens.</strong> Dengue (89,799 cases in 2023), leptospirosis (9,927 cases in 2023, rising), and TB persist at ~62/100,000 with 4,000&ndash;5,000 undetected cases. Chronic kidney disease of unknown aetiology (CKDu) remains concentrated in dry-zone agricultural communities.</p>
+      <p><strong>Mental health.</strong> The economic crisis took a severe toll: 30% of adults reported mental health impacts, and 15% of adolescents considered suicide. Only 1.6% of the health budget is allocated to mental health.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 2: GOVERNANCE ============ -->
+<section class="chapter" id="ch2" data-keywords="governance organization MOH ministry decentralization provincial regulation policy 13th amendment indigenous medicine health information digital health NMRA NATA">
+  <div class="ch-head">
+    <div class="ch-num">02</div>
+    <h2 class="ch-title">Organization &amp; Governance</h2>
+    <div class="ch-tags">
+      <span class="tag">structure</span>
+      <span class="tag">decentralisation</span>
+      <span class="tag">regulation</span>
+      <span class="tag new">digital health</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    The dual preventive/curative system persists under a single DGHS with two parallel hierarchies. The 13th Amendment (1987) framework remains in place but <strong>provincial councils have been inactive since 2019</strong> (elections overdue since 2018). Recent developments: the <strong>National Digital Health Blueprint</strong> was published (Nov 2023), the <strong>NMRA gained major new pricing powers</strong> (Oct 2025), and the Health Minister was arrested (Feb 2024) over a counterfeit immunoglobulin procurement scandal. A new government (NPP) elected in Sept&ndash;Nov 2024 has pledged to raise health spending to <strong>3% of GDP</strong>.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>The split-system architecture</h4>
+      <div class="desc">Two functional arms, evolved since the 1858 civil medical department and 1913 sanitary branch &mdash; still operating as parallel hierarchies under one DGHS.</div>
+      <table class="data" style="margin-top:8px">
+        <tr><th>Arm</th><th>Led by</th><th>Reach (latest)</th></tr>
+        <tr><td>Preventive</td><td>MOH (Medical Officer of Health)</td><td>~340&ndash;350 units, 50&ndash;100k each</td></tr>
+        <tr><td>Curative</td><td>Hospital network</td><td>1,208 inpatient institutions</td></tr>
+      </table>
+      <p style="margin-top:14px;font-size:13px;color:var(--ink-soft)"><strong>Tension:</strong> few cross-links between the two arms &mdash; a structural mismatch as chronic NCDs require continuity that crosses the prevention/treatment line. The "shared care cluster" model (2018) attempts to bridge this gap.</p>
+    </div>
+    <div class="card">
+      <h4>Who decides what &mdash; current reality</h4>
+      <table class="data" style="margin-top:8px">
+        <tr><th>Function</th><th>Central MoH</th><th>Provincial</th></tr>
+        <tr><td>Policy &amp; legislation</td><td>&#10003;</td><td></td></tr>
+        <tr><td>Tertiary hospitals</td><td>&#10003;</td><td></td></tr>
+        <tr><td>HR, technologies</td><td>&#10003;</td><td></td></tr>
+        <tr><td>Primary &amp; secondary curative</td><td></td><td>&#10003; (but PCs inactive)</td></tr>
+        <tr><td>Preventive services</td><td></td><td>&#10003; (but PCs inactive)</td></tr>
+      </table>
+      <p style="margin-top:14px;font-size:13px;color:var(--ink-soft)"><strong>Alert:</strong> Provincial councils have not functioned since 2019. Central government has been de facto managing all levels through the MoH.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card tealtint">
+      <h4>Digital health progress</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>National Digital Health Blueprint</strong> published Nov 2023</li>
+        <li><strong>HHIMS</strong> (Hospital Health Info Mgmt System) now in 80 hospitals, 9.5M+ patients registered</li>
+        <li>HHIMS transferred to MoH control Dec 2024</li>
+        <li><strong>Telemedicine guidelines</strong> issued April 2024</li>
+        <li>e-IMMR, HIMS, RHIMS, DNMS continue in silos &mdash; interoperability remains the recurring blocker</li>
+        <li>2017 National Policy on Health Information still being implemented</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Regulatory &amp; political updates</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>NMRA pricing reform (Oct 2025):</strong> Parliament approved authority to set Maximum Retail Prices for <strong>all medicines</strong> (expanded from 60); 500 medicines initially price-controlled</li>
+        <li><strong>NATA</strong> continues tobacco/alcohol regulation</li>
+        <li><strong>Health Minister arrested (Feb 2024):</strong> Keheliya Rambukwella arrested over counterfeit immunoglobulin procurement scandal; indicted June 2025</li>
+        <li><strong>New government (Sept&ndash;Nov 2024):</strong> NPP (National People's Power) elected; Health Minister: Dr. Nalinda Jayatissa</li>
+        <li><strong>Private hospital registration:</strong> Only 171 of hundreds of private hospitals registered with PHSRC (NAO Report 2024)</li>
+      </ul>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; regulation, policy &amp; patient empowerment</summary>
+    <div class="body">
+      <p><strong>Legal backbone:</strong> Health Services Act 12 of 1952 (revised 1956, 1962). Medical Service Minute No. 662/11 (1991, amended 2001, 2014) governs medical personnel. National Health Policy 2016&ndash;2025 addresses UHC, quality, safety, citizen expectations. <strong>NSFDHS 2016&ndash;2030 extended to 2024</strong>.</p>
+      <p><strong>Key regulators:</strong> Sri Lanka Medical Council, Sri Lanka Nursing Council, National Medicines Regulatory Authority (NMRA, est. 2015, now with expanded pricing powers), Private Medical Institutions Regulatory Council (PMIRA/PHSRC), National Authority on Tobacco &amp; Alcohol (NATA, est. 2006).</p>
+      <p><strong>Patient rights:</strong> No explicit Patients' Charter has been enacted. The UHC Policy Analysis Report (Aug 2025) recommended accelerating patient-rights legislation.</p>
+      <p><strong>Devolution crisis:</strong> Provincial council elections have not been held since 2014, making them overdue since 2018. Central government has been managing all health services de facto. The ADB and World Bank have both flagged this as a governance risk.</p>
+      <p><strong>ADB/WB programs:</strong> ADB $200M Results-Based Loan (2025) for Integrated Health Care and UHC; World Bank $150M Primary Healthcare System Enhancing Project (2024&ndash;2028) covering all districts.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 3: FINANCING ============ -->
+<section class="chapter" id="ch3" data-keywords="financing health expenditure GDP out of pocket OOP government tax insurance Agrahara Suraksha catastrophic economic crisis medicine shortage">
+  <div class="ch-head">
+    <div class="ch-num">03</div>
+    <h2 class="ch-title">Health Financing</h2>
+    <div class="ch-tags">
+      <span class="tag hot">fiscal crisis</span>
+      <span class="tag">tax-funded</span>
+      <span class="tag">low fiscal space</span>
+      <span class="tag new">paying wards</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    Government health expenditure collapsed from <strong>2.26% of GDP (2021)</strong> to just <strong>1.24% (2023)</strong> &mdash; a 45% real decline during the economic crisis. Current Health Expenditure (CHE) stands at <strong>3.68% of GDP</strong> (2023), but the government's share of general government expenditure fell to <strong>6.33%</strong>. Out-of-pocket expenditure declined to <strong>40.22% of CHE</strong> (2022), though this partly reflects reduced utilization during the crisis rather than improved financial protection. The new NPP government has pledged to raise health spending to 3% of GDP. Recent innovations include "paying wards" in government hospitals and expanded insurance schemes.
+  </div>
+
+  <div class="grid-mix">
+    <div class="card">
+      <h4>Where the rupees come from (2022)</h4>
+      <div class="desc">Current Health Expenditure by source. Government remains the largest pooled source, but its share has shrunk sharply during the fiscal crisis.</div>
+      <div class="chart-box"><canvas id="ch3_sources"></canvas></div>
+    </div>
+    <div class="card">
+      <h4>The fiscal crisis in numbers</h4>
+      <div class="fact warn"><div class="big">1.24%</div><div class="txt">Government health expenditure as % of GDP in 2023 &mdash; <strong>down from 2.26%</strong> in 2021, a devastating 45% real decline</div></div>
+      <div class="fact"><div class="big">6.33%</div><div class="txt">Government health expenditure as % of total government expenditure (2023) &mdash; down from ~9%</div></div>
+      <div class="fact"><div class="big">$145</div><div class="txt">CHE per capita (current US$, 2022) &mdash; stagnant for a decade</div></div>
+      <div class="fact"><div class="big">3%</div><div class="txt">NPP government <strong>pledge</strong> for health spending as % of GDP &mdash; not yet achieved</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card">
+      <h4>Government health expenditure vs GDP (2000&ndash;2023)</h4>
+      <div class="desc">The dramatic collapse post-2021 reflects the sovereign debt crisis and IMF austerity. The 2020&ndash;2021 spike was COVID-19 pandemic spending.</div>
+      <div class="chart-box"><canvas id="ch3_trend"></canvas></div>
+    </div>
+    <div class="card">
+      <h4>OOP composition &mdash; what households pay for</h4>
+      <div class="desc">Medicines and outpatient consultations remain the dominant drivers. The introduction of "paying wards" in government hospitals is a new development.</div>
+      <div class="chart-box"><canvas id="ch3_oop"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card tealtint">
+      <h4>Insurance &amp; social protection updates</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>Agrahara</strong> &mdash; compulsory for ~1.4M government employees; mandatory contribution increased to Rs.1,000/month from Jan 2025</li>
+        <li><strong>Suraksha</strong> &mdash; student insurance resumed; Rs.2,000 million allocated in 2024 budget for 4.5 million students</li>
+        <li><strong>Voluntary private health insurance:</strong> small market, mostly group plans; 2% of CHE</li>
+        <li><strong>"Paying wards"</strong> introduced in government hospitals &mdash; offering paid services alongside free care, a significant policy shift</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Medicine procurement post-crisis</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>SPC turnover</strong> Rs.74.7 billion (2023)</li>
+        <li><strong>Outstanding debt</strong> Rs.38.9 billion owed by Medical Supplies Division to SPC</li>
+        <li><strong>NMRA pricing reform (Oct 2025):</strong> Maximum Retail Prices for 500+ medicines</li>
+        <li>Procurement digitalization underway but slow</li>
+        <li>Drug shortages have eased from 2022 peak but remain a risk</li>
+      </ul>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; revenue mechanics, crisis impact &amp; recovery</summary>
+    <div class="body">
+      <p><strong>The fiscal collapse.</strong> Government health spending fell from 2.26% of GDP (2021) to 1.76% (2022) to 1.24% (2023). The 2023 budget allocated only 1.06% of GDP to health (LKR 322,000 million). The Parliament Sectoral Oversight Committee noted this was "an increase" compared to 1.04% in 2022 &mdash; but both figures represent historic lows.</p>
+      <p><strong>Tax mix remains regressive.</strong> Direct taxes made up only ~17% of tax revenue (2018); indirect taxes (VAT, excise, customs) dominate. Revenue collection itself is weak (low tax/GDP ratio), constraining fiscal space even before debt service.</p>
+      <p><strong>OOPE paradox.</strong> OOPE declined from 50%+ to 40.22% of CHE (2022). However, this may reflect reduced utilization during the crisis rather than improved protection. Catastrophic spending remains low (~5.4% at 10% threshold) because the rich pay most OOPE and government covers inpatient care.</p>
+      <p><strong>IMF program.</strong> The $2.9 billion Extended Fund Facility (March 2023) included social protection floor at only 0.6% of GDP &mdash; criticized as inadequate. Health sector received $47.2M through the UN Humanitarian Needs and Response Plan.</p>
+      <p><strong>Provider payment.</strong> Public sector remains line-item budget. No DRG, no capitation. No purchaser-provider split. Performance incentives are limited.</p>
+      <p><strong>The 3% pledge.</strong> The NPP government elected in 2024 has pledged to raise government health spending to 3% of GDP. This would more than double current spending but requires significant revenue mobilization.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 4: RESOURCES ============ -->
+<section class="chapter" id="ch4" data-keywords="resources hospitals beds workforce doctors nurses midwives PHM PHI infrastructure brain drain SARA equipment telemedicine ICU">
+  <div class="ch-head">
+    <div class="ch-num">04</div>
+    <h2 class="ch-title">Physical &amp; Human Resources</h2>
+    <div class="ch-tags">
+      <span class="tag">hospitals</span>
+      <span class="tag hot">brain drain</span>
+      <span class="tag">distribution</span>
+      <span class="tag new">telemedicine</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    The state health network comprises <strong>1,208 institutions</strong> with <strong>90,240 beds (~4.0 per 1,000)</strong>. New infrastructure includes the German-Sri Lanka Friendship Maternity Hospital (411 beds, opened March 2024), Dutch-funded A&amp;E centres in the North, and 13 Chinese loan-funded hospital upgrades. Suwa Seriya now operates <strong>322 ambulances</strong> handling 5,000+ calls daily. However, the health workforce faces an <strong>existential crisis</strong>: 1,489 doctors emigrated in 2022&ndash;2024, 25% of government doctors took foreign licensing exams, and 13,880 approved positions remain vacant. Telemedicine guidelines were issued in April 2024.
+  </div>
+
+  <div class="grid-mix">
+    <div class="card">
+      <h4>The hospital pyramid (updated 2024)</h4>
+      <div class="desc">State health institutions by category and bed strength. Tertiary care concentrates beds; primary medical care units (PMCU) outnumber but each handles only outpatients.</div>
+      <div class="chart-box tall"><canvas id="ch4_pyramid"></canvas></div>
+    </div>
+    <div class="card">
+      <h4>Workforce categories &mdash; updated</h4>
+      <table class="data" style="margin-top:0;font-size:12px">
+        <tr><th>Category</th><th>~Number (latest)</th></tr>
+        <tr><td>Medical Officers</td><td>~23,000 (110/100k)</td></tr>
+        <tr><td>Nurses</td><td>44,000 (228/100k)</td></tr>
+        <tr><td>Public Health Midwives (PHM)</td><td>~5,746</td></tr>
+        <tr><td>Public Health Inspectors (PHI)</td><td>~1,720</td></tr>
+        <tr><td>Specialists/Consultants</td><td>~2,800</td></tr>
+        <tr><td><strong>Approved cadre (Line Ministry)</strong></td><td><strong>97,986</strong></td></tr>
+        <tr><td><strong>Actual staff (Line Ministry)</strong></td><td><strong>84,106</strong></td></tr>
+        <tr><td><strong>Vacancies</strong></td><td><strong>13,880</strong></td></tr>
+      </table>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px">Source: Auditor General 2024, Cadre Profile March 2025. Private sector estimates not available.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card crisis">
+      <h4>The brain drain crisis</h4>
+      <div class="fact warn"><div class="big">1,489</div><div class="txt">doctors emigrated <strong>2022&ndash;2024</strong> &mdash; 10x the pre-crisis rate of ~200/year</div></div>
+      <div class="fact warn"><div class="big">25%</div><div class="txt">of government doctors have taken <strong>foreign licensing exams</strong>; 5,000+ qualified to leave</div></div>
+      <div class="fact warn"><div class="big">Rs.12.5B</div><div class="txt">estimated economic loss from doctor emigration (training investment)</div></div>
+      <div class="fact warn"><div class="big">6.1%</div><div class="txt">specialist <strong>attrition rate</strong> per annum &mdash; threatening the specialist pipeline</div></div>
+    </div>
+    <div class="card">
+      <h4>New infrastructure &amp; capacity</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>German-Sri Lanka Friendship Maternity Hospital, Karapitiya</strong> &mdash; 411 beds, opened March 2024</li>
+        <li><strong>Point Pedro A&amp;E Centre and Vavuniya Cardiology Unit</strong> &mdash; Dutch-funded, handed over Q4 2023</li>
+        <li><strong>13 Chinese loan-funded</strong> hospital upgrade projects (7 completed, 6 in progress)</li>
+        <li><strong>New 128-slice CT scanner</strong> at National Hospital Colombo</li>
+        <li><strong>ICU beds (Line Ministry):</strong> 1,034+</li>
+        <li><strong>HDU beds (Line Ministry):</strong> 1,200+</li>
+        <li><strong>Average length of stay:</strong> 1.0&ndash;4.0 days (varies by tier, trending down)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card tealtint">
+      <h4>Suwa Seriya ambulance service</h4>
+      <div class="stat-grid">
+        <div class="stat"><div class="n">322</div><div class="t">Ambulances</div></div>
+        <div class="stat"><div class="n">5,000+</div><div class="t">Calls/day</div></div>
+        <div class="stat"><div class="n">14:28</div><div class="t">Min avg response</div></div>
+        <div class="stat"><div class="n">56</div><div class="t">Out of service</div></div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--muted)">Nationwide free emergency pre-hospital service. Expanded from initial Western &amp; Southern Provinces to cover all districts.</p>
+    </div>
+    <div class="card tealtint">
+      <h4>Telemedicine &amp; digital health</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>Telemedicine guidelines</strong> issued April 2024 &mdash; first formal regulation</li>
+        <li><strong>HHIMS</strong> in 80 hospitals, 9.5M+ patients registered</li>
+        <li><strong>National Digital Health Blueprint</strong> published Nov 2023</li>
+        <li>e-IMMR, HIMS, RHIMS, DNMS continue in parallel &mdash; interoperability pending</li>
+        <li>Unique patient identifier still not implemented nationally</li>
+      </ul>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; skill-mix, retention &amp; the emigration crisis</summary>
+    <div class="body">
+      <p><strong>Distribution remains uneven.</strong> Western Province concentrates specialists. Rural retention was historically supported by dual practice (allowed since 1977), but the economic crisis has changed the equation.</p>
+      <p><strong>The brain drain is unprecedented.</strong> A peer-reviewed study (Wiley, July 2025) found 1,489 doctors left between 2022&ndash;2024. The specialist attrition rate is 6.1% per annum. With 25% of government doctors having completed foreign licensing exams, the threat to the specialist pipeline is existential.</p>
+      <p><strong>Dual practice under pressure.</strong> State-employed doctors may still engage in private practice outside official hours. But with the collapse of the rupee and soaring cost of living, even dual practice income became insufficient &mdash; pushing doctors toward full emigration.</p>
+      <p><strong>PHM (Public Health Midwife)</strong> &mdash; still the backbone of community MCH delivery, but numbers have fallen from ~7,500 to ~5,746 as recruitment has not kept pace with retirements.</p>
+      <p><strong>Training pipeline.</strong> Eight state university medical faculties produce ~1,500 doctors annually. New faculties at Sabaragamuwa and Moratuwa are expanding capacity, but the emigration rate now exceeds graduation output.</p>
+      <p><strong>Only 5 child psychiatrists</strong> serve the entire country &mdash; a critical gap given 15% of adolescents considered suicide during the economic crisis.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 5: SERVICES ============ -->
+<section class="chapter" id="ch5" data-keywords="services public health curative care ambulatory inpatient emergency pharmaceutical mental dental palliative indigenous UHC tracers immunization HLC">
+  <div class="ch-head">
+    <div class="ch-num">05</div>
+    <h2 class="ch-title">Provision of Services</h2>
+    <div class="ch-tags">
+      <span class="tag">MOH system</span>
+      <span class="tag">UHC tracers</span>
+      <span class="tag">no gatekeeping</span>
+      <span class="tag new">HLC network</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    Services are within ~4.8 km on average. State covers ~95% of inpatient care and ~50% of outpatient. The <strong>UHC Service Coverage Index stands at 67/100</strong> &mdash; above the SE Asia average of 62. Maternal and child health indicators remain strong (skilled birth attendance 99%, institutional deliveries 99.9%). Immunization coverage recovered to 99% post-COVID. However, NCD treatment coverage is alarmingly poor: only <strong>36% of hypertensives</strong> and <strong>38% of diabetics</strong> receive treatment, and among those on treatment, only 39% of hypertensives and 12.4% of diabetics achieve control. Healthy Lifestyle Centres (HLCs) now number ~896 nationwide.
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4>What MOH teams deliver</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li>Antenatal &amp; postnatal care</li>
+        <li>Family planning</li>
+        <li>Immunisation (EPI) &mdash; 99% coverage</li>
+        <li>Child growth monitoring</li>
+        <li>School health</li>
+        <li>Communicable disease surveillance</li>
+        <li>Environmental &amp; food sanitation</li>
+        <li>Healthy Lifestyle Centres (HLC) &mdash; ~896 nationwide</li>
+      </ul>
+    </div>
+    <div class="card tealtint">
+      <h4>The bypassing phenomenon</h4>
+      <div class="desc">Patients routinely skip primary facilities to seek first-contact care at higher-level hospitals. Drivers identified in studies:</div>
+      <div class="stat-grid">
+        <div class="stat"><div class="n">1</div><div class="t">Perceived facilities</div></div>
+        <div class="stat"><div class="n">2</div><div class="t">Medicine availability</div></div>
+        <div class="stat"><div class="n">3</div><div class="t">Provider competency</div></div>
+        <div class="stat"><div class="n">4</div><div class="t">Quality of care</div></div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--muted)">Result: tertiary overcrowding, fragmented care for NCDs. The shared care cluster model (2018) is the attempted remedy.</p>
+    </div>
+    <div class="card">
+      <h4>Indigenous &amp; traditional systems</h4>
+      <p style="font-size:13px;color:var(--ink-soft)">A confluence of <strong>Ayurveda</strong> (north India), <strong>Siddha</strong> (south India), <strong>Unani</strong> (Arab) and <strong>Deshiya Chikitsa / Hela Wedakama</strong> (indigenous). Under MoH purview since 2015. Ayurveda operates a parallel system with 9+ hospitals and 31+ medical institutes (Central Province alone). Many people use both traditional and allopathic care.</p>
+    </div>
+  </div>
+
+  <div class="grid-mix" style="margin-top:24px">
+    <div class="card">
+      <h4>UHC service coverage indicators &mdash; where Sri Lanka stands</h4>
+      <div class="desc">Selected tracers vs. lower-middle-income countries. Strong on prevention, critically weak on NCD treatment.</div>
+      <div class="chart-box"><canvas id="ch5_uhc"></canvas></div>
+    </div>
+    <div class="card crisis">
+      <h4>The NCD treatment gap &mdash; critical concern</h4>
+      <div class="fact warn"><div class="big">36</div><div class="txt">UHC treatment score for hypertension &mdash; <strong>"Low"</strong>; 64% of hypertensives are NOT on medication</div></div>
+      <div class="fact warn"><div class="big">39%</div><div class="txt">of hypertensives on treatment achieve <strong>control</strong> &mdash; meaning only ~14% of all hypertensives are controlled</div></div>
+      <div class="fact warn"><div class="big">12.4%</div><div class="txt">of diabetics on treatment have HbA1c &lt;7% &mdash; <strong>critically poor</strong> glycaemic control</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="card">
+      <h4>The services map by level of care</h4>
+      <div class="tbl-wrap">
+        <table class="data">
+          <tr><th>Level</th><th>Facility</th><th>Managed by</th><th>Services</th></tr>
+          <tr><td>Tertiary</td><td>National Hospital, Teaching Hospitals (16)</td><td>Line Ministry</td><td>Super-specialty, training, referral</td></tr>
+          <tr><td>Secondary</td><td>Provincial / District General Hospital (21)</td><td>Provincial (MoH de facto)</td><td>Multi-specialty inpatient + outpatient</td></tr>
+          <tr><td>Secondary</td><td>Base Hospitals (71)</td><td>Provincial</td><td>Selected specialties, inpatient</td></tr>
+          <tr><td>Primary</td><td>Divisional Hospitals (485)</td><td>Provincial</td><td>Non-specialist inpatient + OPD</td></tr>
+          <tr><td>Primary</td><td>Primary Medical Care Units (485+)</td><td>Provincial</td><td>Outpatient only</td></tr>
+          <tr><td>Community</td><td>MOH unit + branch clinics (~340-350)</td><td>Provincial / Municipal</td><td>All preventive services</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; NCD-era service gaps &amp; specific populations</summary>
+    <div class="body">
+      <p><strong>NCD management gap.</strong> Healthy Lifestyle Centres (~896) screen 40&ndash;65-year-olds &mdash; the first such network in South-East Asia, established 2011. But attendance skews female (men work during clinic hours), lab facilities are limited, and follow-up is largely paper-based. The gap between screening and treatment control is the system's weakest link.</p>
+      <p><strong>Mental health.</strong> National Institute of Mental Health (NIMH, 1,409 beds) plus 24 acute psychiatric units in general hospitals. Long ALOS at mental hospitals (~50 days) reflects both real chronicity and structural placement. Only <strong>5 child psychiatrists</strong> for the entire country. 15% of adolescents considered suicide during the economic crisis.</p>
+      <p><strong>Palliative care.</strong> Still limited; 11 institutions with consult services; 230 Palliative Health Nursing Officers (PHNOs) provide home care. A proposed community-to-institution model exists but is not yet scaled.</p>
+      <p><strong>Emergency care.</strong> Suwa Seriya (322 ambulances, 5,000+ calls/day, 14:28 min average response) has transformed pre-hospital transport. A&amp;E units at hospitals function 24/7.</p>
+      <p><strong>Cancer care.</strong> GLOBOCAN 2022: 33,243 new cases, 19,145 deaths. Leading cancers: breast (women), lip/oral cavity (men). Cancer hospital ALOS fell from 8.9 to 4.3 days (2004&ndash;2017) &mdash; improved efficiency but also reflecting case-mix shifts.</p>
+      <p><strong>Specific populations.</strong> Migrant workers, plantation communities, post-conflict Northern/Eastern populations, and prison populations have dedicated programmes but coverage gaps remain. Northern and Eastern provinces are still recovering from conflict legacy.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 6: REFORMS ============ -->
+<section class="chapter" id="ch6" data-keywords="reforms policy timeline NATA NMRA UHC shared care cluster decentralization dual practice migration tobacco alcohol COVID economic crisis NPP digital health">
+  <div class="ch-head">
+    <div class="ch-num">06</div>
+    <h2 class="ch-title">Principal Health Reforms</h2>
+    <div class="ch-tags">
+      <span class="tag">timeline</span>
+      <span class="tag hot">UHC pivot</span>
+      <span class="tag">shared care cluster</span>
+      <span class="tag new">post-crisis</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    The reform timeline now includes three transformative shock events: the <strong>COVID-19 pandemic</strong> (2020&ndash;2022), the <strong>economic collapse</strong> (2022&ndash;2023), and the <strong>NPP political transition</strong> (2024) with its pledge to raise health spending to 3% of GDP. The 2018 UHC policy's 5-year action framework concluded in 2024; a comprehensive policy analysis was launched in August 2025. The shared care cluster model is now being scaled with World Bank ($150M) and ADB ($200M) support. Digital health has advanced with the National Digital Health Blueprint (2023) and telemedicine guidelines (2024). NMRA gained landmark pricing powers in October 2025.
+  </div>
+
+  <div class="timeline-wrap">
+    <div class="timeline">
+      <div class="timeline-axis"></div>
+      <div class="tl-row" id="tlRow"></div>
+    </div>
+    <div class="tl-detail" id="tlDetail">
+      <h5>Click an event on the timeline</h5>
+      Use the dots above to explore each reform &mdash; what changed, why it mattered, and where the implementation gaps lie today.
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:24px">
+    <div class="card">
+      <h4>The "shared care cluster" &mdash; scaling up</h4>
+      <p style="font-size:14px;color:var(--ink-soft)">Each cluster groups primary medical care units, divisional hospitals, and an "apex" higher hospital. A defined population is assigned. The aim: continuity of care, gatekept referrals, and one electronic record per citizen.</p>
+      <p style="font-size:13px;color:var(--muted)"><strong>Status:</strong> Piloted in 3 districts since 2013 (Polonnaruwa, Nuwara Eliya, Hambantota). ADB HSEP supported 9 districts. WB PHSEP ($150M, 2024&ndash;2028) now scaling to <strong>1,000+ PMCIs across ALL districts</strong>. The 2025 UHC Policy Analysis confirmed progress but flagged uneven implementation.</p>
+    </div>
+    <div class="card dark">
+      <h4>The missing reform: fiscal space</h4>
+      <p style="color:rgba(251,247,237,.85);font-size:14px">Every author of the HiT keeps returning to one point: <strong style="color:#ffd685">increased fiscal space for health</strong>. The crisis made it worse &mdash; government health spending fell to 1.24% of GDP. The NPP government has pledged 3%, which would more than double current spending. Without this, the structural reforms struggle to deliver on quality, equity and chronic-disease management at scale.</p>
+    </div>
+    <div class="card tealtint">
+      <h4>International support programs</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>ADB:</strong> $200M Results-Based Loan (2025) for Integrated Health Care and UHC Program</li>
+        <li><strong>World Bank:</strong> $150M Primary Healthcare System Enhancing Project (2024&ndash;2028), all districts</li>
+        <li><strong>WHO:</strong> $4.9M emergency appeal (2022); ongoing technical support for UHC</li>
+        <li><strong>UNICEF:</strong> Support to 51 hospitals during crisis; immunization recovery</li>
+        <li><strong>IMF:</strong> $2.9B EFF (March 2023) &mdash; health via social protection floor</li>
+        <li><strong>Direct Relief:</strong> $126.9M in medicines donated during crisis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 7: ASSESSMENT ============ -->
+<section class="chapter" id="ch7" data-keywords="assessment performance UHC equity efficiency quality financial protection outcomes transparency accountability brain drain crisis recovery">
+  <div class="ch-head">
+    <div class="ch-num">07</div>
+    <h2 class="ch-title">Assessment of the System</h2>
+    <div class="ch-tags">
+      <span class="tag">UHC</span>
+      <span class="tag">equity</span>
+      <span class="tag hot">post-crisis</span>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <div class="label">Chapter summary</div>
+    Sri Lanka remains the canonical "good health at low cost" case but with a critical new caveat: the <strong>health system survived the economic crisis but is now in a fragile recovery</strong>. The UHC Service Coverage Index is <strong>67/100</strong> (above SE Asia average of 62). Tax-funded public services, free at point of care, continue delivering strong MCH outcomes. But NCD treatment coverage is critically weak, the brain drain threatens workforce capacity, and government spending at 1.24% of GDP is insufficient for the ageing, NCD-dominant era. The system was built for episodic acute care; the NCD/ageing era demands continuity, gatekeeping and patient-centred PHC &mdash; reforms in progress but under-resourced.
+  </div>
+
+  <div class="grid-mix">
+    <div class="card">
+      <h4>How the system scores against UHC tracer indicators</h4>
+      <div class="desc">Selected tracers vs. lower-middle-income countries. Updated with latest data.</div>
+      <div class="chart-box"><canvas id="ch7_uhc"></canvas></div>
+    </div>
+    <div class="card">
+      <h4>Strengths the assessment confirms</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.75">
+        <li><strong>Physical access</strong> &mdash; a facility within ~5km</li>
+        <li><strong>MCH excellence</strong> &mdash; skilled birth 99%, institutional delivery 99.9%</li>
+        <li><strong>Immunization recovery</strong> &mdash; 99% DTP3 coverage post-COVID</li>
+        <li><strong>Financial protection</strong> for catastrophic events via public inpatient care</li>
+        <li><strong>Implicit pro-poor targeting</strong> &mdash; wealthier opt-out of public</li>
+        <li><strong>Strong supervisory chain</strong> on the preventive side</li>
+        <li><strong>UHC SCI 67/100</strong> &mdash; above regional average</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-mix" style="margin-top:24px">
+    <div class="card crisis">
+      <h4>Emerging threats &amp; weaknesses</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.75">
+        <li><strong>Brain drain:</strong> 1,489 doctors emigrated 2022&ndash;2024; 25% of government doctors qualified to leave</li>
+        <li><strong>Fiscal collapse:</strong> Govt health spending fell to 1.24% of GDP (2023)</li>
+        <li><strong>NCD treatment gap:</strong> Only 36% of hypertensives, 38% of diabetics receive treatment</li>
+        <li><strong>OOPE creeping:</strong> Medicines and outpatient consults remain dominant drivers</li>
+        <li><strong>Information system fragmented:</strong> Interoperability still not achieved</li>
+        <li><strong>HR distribution &amp; skill-mix:</strong> 13,880 vacancies; Western Province concentration</li>
+        <li><strong>Mental health:</strong> Only 1.6% of budget; 5 child psychiatrists nationally</li>
+        <li><strong>Devolution gap:</strong> No provincial councils since 2019</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Catastrophic vs impoverishing health spending</h4>
+      <div class="desc">Sri Lanka maintains relatively low catastrophic spending for a country with 40%+ OOPE &mdash; explained by public absorption of high-cost inpatient care. However, the crisis increased vulnerability.</div>
+      <div class="chart-box"><canvas id="ch7_cata"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card">
+      <h4>Recovery indicators (2023&ndash;2024)</h4>
+      <table class="data" style="margin-top:0;font-size:12px">
+        <tr><th>Indicator</th><th>Status</th></tr>
+        <tr><td>Medicine availability</td><td>Improving from 2022 peak shortages</td></tr>
+        <tr><td>Inflation</td><td>Down to ~4% (Aug 2023) from 70% peak</td></tr>
+        <tr><td>Health expenditure (2024)</td><td>Rs. 432 billion allocated</td></tr>
+        <tr><td>Doctor emigration rate</td><td>Still elevated but stabilizing</td></tr>
+        <tr><td>NMRA pricing reform</td><td>Implementation started Oct 2025</td></tr>
+        <tr><td>WB/ADB programs</td><td>$350M combined now active</td></tr>
+        <tr><td>Telemedicine</td><td>Guidelines issued April 2024</td></tr>
+        <tr><td>New government pledge</td><td>3% GDP for health (pending)</td></tr>
+      </table>
+    </div>
+    <div class="card tealtint">
+      <h4>What the 2025 UHC Policy Analysis found</h4>
+      <ul style="font-size:13px;color:var(--ink-soft);padding-left:18px;line-height:1.7">
+        <li><strong>UHC policy 5-year action framework (2018&ndash;2024)</strong> completed; first comprehensive review conducted</li>
+        <li>Launched August 2025 with Minister of Health, DGHS, and WHO Representative</li>
+        <li>Key gaps identified: TB treatment coverage, hypertension/diabetes screening, tobacco control</li>
+        <li>Workshop held to advance recommendations on UHC data observatory</li>
+        <li>Report recommends accelerating patient-rights legislation and scaling shared care clusters</li>
+      </ul>
+    </div>
+  </div>
+
+  <details class="deep">
+    <summary>Deep dive &middot; efficiency, transparency, accountability</summary>
+    <div class="body">
+      <p><strong>Efficiency.</strong> Average LOS is low and falling (1.0&ndash;4.0 days by tier). Doctor consultations per capita and hospital discharges per 1,000 remain competitive. But allocative efficiency is a concern: ~40% of government spending sits at tertiary level despite primary care being the NCD priority. Bed occupancy varies 50&ndash;80% by tier.</p>
+      <p><strong>Equity.</strong> Per-capita government health spending varies across provinces &mdash; Western Province concentrates spending. Northern and Eastern provinces still recovering from conflict. The economic crisis hit all provinces but urban areas recovered faster.</p>
+      <p><strong>Transparency.</strong> Procurement remains a scrutiny point. The Health Minister's arrest (Feb 2024) over counterfeit immunoglobulin highlighted systemic procurement weaknesses. National Audit reports continue to surface periodic issues.</p>
+      <p><strong>Accountability.</strong> Provincial devolution has been inactive since 2019, complicating lines of accountability. The Patients' Charter remains unenacted. Civil society oversight is uneven.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ CHAPTER 8: CONCLUSIONS ============ -->
+<section class="chapter" id="ch8" data-keywords="conclusions achievements challenges future UHC NCD ageing reform fiscal space brain drain crisis recovery">
+  <div class="ch-head">
+    <div class="ch-num">08</div>
+    <h2 class="ch-title">Conclusions</h2>
+    <div class="ch-tags"><span class="tag">synthesis</span><span class="tag new">recovery</span></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card tealtint">
+      <h4>What worked &mdash; and still works</h4>
+      <p style="font-size:14px;color:var(--ink-soft);line-height:1.7">
+        Tax-funded, publicly-delivered, free-at-point services &mdash; driven by early universal franchise (1931), which gave voters the political weight to demand expansion into rural areas. The 1934&ndash;35 malaria epidemic embedded two principles still visible today: <strong>widely-dispersed services</strong> and <strong>financial protection</strong>. Female education, MOH community delivery, and food/income safety nets did the social heavy-lifting. Together they delivered health outcomes years ahead of income peers. Even through the 2022&ndash;2023 economic collapse, the public health system did not collapse &mdash; a testament to its resilience.
+      </p>
+    </div>
+    <div class="card dark">
+      <h4>What now strains the system &mdash; new and old</h4>
+      <p style="color:rgba(251,247,237,.85);font-size:14px;line-height:1.7">
+        The model was built for episodic acute illness, infectious disease control, and MCH. It now faces <strong>ageing, NCDs, mental illness, and citizen expectations</strong> rising faster than fiscal space. But the 2022&ndash;2023 crisis added three acute stressors: a <strong>45% real decline</strong> in government health spending, an <strong>unprecedented medical brain drain</strong> (1,489 doctors in 2 years), and <strong>medicine shortages</strong> that put lives at risk. Curative quality has not kept up with preventive achievements. The reform agenda &mdash; close-to-client primary care, integrated electronic records, HR planning, demand-side empowerment &mdash; is correct on paper but requires more public money and political will to land.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:24px" class="card">
+    <h4>The recurring asks &mdash; updated for 2025</h4>
+    <div class="grid-3">
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">Money</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Raise public spending from 1.24% to the pledged 3% of GDP; the gap is now critical after the crisis collapse. Broaden fiscal base; preserve OOPE protection.</p>
+      </div>
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">Structure</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Scale shared-care clusters (WB $150M + ADB $200M); enforce gatekeeping; integrate prevention &amp; treatment. Resolve provincial council vacuum.</p>
+      </div>
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">People</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Retain doctors (25% qualified to leave); fill 13,880 vacancies; reform dual practice; expand child psychiatry (currently 5 for 21M people).</p>
+      </div>
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">Information</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Implement National Digital Health Blueprint; achieve interoperability; deploy unique citizen identifier.</p>
+      </div>
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">NCDs</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Close the treatment gap: 64% of hypertensives and 62% of diabetics are untreated. Strengthen HLC follow-up to treatment.</p>
+      </div>
+      <div>
+        <p style="font-family:'Fraunces';font-weight:600;color:var(--rust);font-size:14px;margin:0 0 6px">Resilience</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0">Build shock-responsive procurement; diversify medicine supply; protect health workforce from future economic crises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONCEPT MAP ============ -->
+<section class="chapter" id="concept" data-keywords="concept map relationships connections cross-cutting brain drain fiscal crisis digital health">
+  <div class="ch-head">
+    <div class="ch-num">&#8984;</div>
+    <h2 class="ch-title">Concept Map</h2>
+    <div class="ch-tags"><span class="tag">relationships</span><span class="tag">cross-cutting</span></div>
+  </div>
+  <p style="color:var(--ink-soft);max-width:760px;margin:0 0 20px;font-size:15px">
+    How the pieces connect. Hover a node to see its links. Click to jump to that section. The structure mirrors WHO's six health-system building blocks &mdash; but laid out to show where Sri Lanka's friction points sit, including the new post-crisis stressors.
+  </p>
+  <div class="concept-wrap">
+    <svg id="conceptSvg" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="cm-legend">
+      <span><i style="background:var(--teal)"></i>Building block</span>
+      <span><i style="background:var(--rust)"></i>Pressure / friction</span>
+      <span><i style="background:var(--ochre)"></i>Reform lever</span>
+      <span><i style="background:var(--leaf)"></i>Outcome</span>
+      <span><i style="background:var(--crimson)"></i>Crisis shock</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXTERNAL LINKS ============ -->
+<section class="chapter" id="links" data-keywords="links resources external WHO ministry health">
+  <div class="ch-head">
+    <div class="ch-num">&#8599;</div>
+    <h2 class="ch-title">External Resources</h2>
+    <div class="ch-tags"><span class="tag">official sources</span></div>
+  </div>
+  <p style="color:var(--ink-soft);max-width:720px;margin:0 0 20px;font-size:15px">
+    Primary sources for current data, policies and updates. All links open in a new tab.
+  </p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4>Government of Sri Lanka</h4>
+      <div class="linklist">
+        <a href="https://www.health.gov.lk/" target="_blank" rel="noopener">Ministry of Health</a>
+        <a href="https://www.health.gov.lk/wp-content/uploads/2026/03/Annual-Health-Bulletin-2024-compressed.pdf" target="_blank" rel="noopener">Annual Health Bulletin 2024 (PDF)</a>
+        <a href="https://www.epid.gov.lk/" target="_blank" rel="noopener">Epidemiology Unit</a>
+        <a href="https://fhb.health.gov.lk/" target="_blank" rel="noopener">Family Health Bureau</a>
+        <a href="https://nmra.gov.lk/" target="_blank" rel="noopener">National Medicines Regulatory Authority</a>
+        <a href="https://www.statistics.gov.lk/" target="_blank" rel="noopener">Department of Census &amp; Statistics</a>
+        <a href="https://www.cbsl.gov.lk/" target="_blank" rel="noopener">Central Bank of Sri Lanka</a>
+      </div>
+    </div>
+    <div class="card">
+      <h4>WHO &amp; International</h4>
+      <div class="linklist">
+        <a href="https://www.who.int/srilanka" target="_blank" rel="noopener">WHO Sri Lanka country office</a>
+        <a href="https://www.who.int/southeastasia" target="_blank" rel="noopener">WHO South-East Asia Region</a>
+        <a href="https://wkc.who.int/resources/publications/i/item/sri-lanka-health-system-review" target="_blank" rel="noopener">Original HiT report (2021) on WHO</a>
+        <a href="https://data.who.int/countries/144" target="_blank" rel="noopener">WHO data dashboard &mdash; Sri Lanka</a>
+        <a href="https://www.who.int/data/gho/data/countries/country-details/GHO/sri-lanka" target="_blank" rel="noopener">GHO data &mdash; Sri Lanka indicators</a>
+        <a href="https://data.worldbank.org/country/sri-lanka" target="_blank" rel="noopener">World Bank &mdash; Sri Lanka data</a>
+        <a href="https://www.healthdata.org/research-analysis/health-by-location/profiles/sri-lanka" target="_blank" rel="noopener">IHME Sri Lanka profile (GBD)</a>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Research &amp; Policy</h4>
+      <div class="linklist">
+        <a href="https://www.ihp.lk/" target="_blank" rel="noopener">Institute for Health Policy (IHP)</a>
+        <a href="https://www.cmb.ac.lk/" target="_blank" rel="noopener">University of Colombo</a>
+        <a href="https://medicine.kln.ac.lk/" target="_blank" rel="noopener">Faculty of Medicine, Kelaniya</a>
+        <a href="https://www.slma.lk/" target="_blank" rel="noopener">Sri Lanka Medical Association</a>
+        <a href="https://www.adb.org/projects/58017-001/main" target="_blank" rel="noopener">ADB: Integrated Health Care for UHC</a>
+        <a href="https://www.d4hdataimpact.org/post/launching-the-uhc-policy-analysis-report-in-sri-lanka-and-advancing-recommendations" target="_blank" rel="noopener">UHC Policy Analysis Report (Aug 2025)</a>
+        <a href="https://www.health.gov.lk/wp-content/uploads/2022/10/Analysis-of-Sri-Lankas-Policy-on-Healthcare-Delivery-for-Universal-Health-Coverage-2025-1-compressed.pdf" target="_blank" rel="noopener">UHC Policy Analysis (PDF, 2025)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ RANDOM MODAL ============ -->
+<div class="modal-bg" id="randomModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeRandom()">&times;</button>
+    <div class="modal-chip" id="randChip">CONCEPT</div>
+    <h3 id="randTitle">&mdash;</h3>
+    <div class="modal-body" id="randBody">&mdash;</div>
+    <div class="modal-actions">
+      <button class="btn" onclick="showRandom()">&#x27F3; Another</button>
+      <button class="btn primary" id="randJump">Jump to section &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Interactive companion updated May 2025 from "Sri Lanka Health System Review" &mdash; Rajapaksa L et al., WHO HiT Vol 10 No 1, 2021 &middot;
+  Updated with Census 2024, Annual Health Bulletin 2024, WHO GHED 2023, STEPS 2021, and post-crisis indicators &middot;
+  <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/igo/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 IGO</a> &middot;
+  Source content &copy; WHO. This rendering is an unofficial study aid.
+</footer>
+
+<script>
+/* ============ CHARTS ============ */
+Chart.defaults.font.family = "'Inter',system-ui,sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#3b4a40';
+Chart.defaults.borderColor = '#d6cdba';
+const C = {teal:'#0e5a55',tealD:'#063b38',rust:'#b04a1f',ochre:'#c89322',leaf:'#3a6b3a',crimson:'#8a1c2b',ink:'#15201a',inkS:'#3b4a40',line:'#d6cdba'};
+
+// CH1: disease burden (updated with 2019, 2021 data points)
+new Chart(document.getElementById('ch1_burden'), {
+  type:'line',
+  data:{
+    labels:['2004','2008','2016','2019','2021'],
+    datasets:[
+      {label:'Communicable / maternal / nutritional',data:[280,210,140,100,80],borderColor:C.leaf,backgroundColor:'rgba(58,107,58,.1)',tension:.4,fill:true},
+      {label:'NCDs',data:[700,820,900,950,980],borderColor:C.rust,backgroundColor:'rgba(176,74,31,.1)',tension:.4,fill:true},
+      {label:'Injuries',data:[170,150,130,120,110],borderColor:C.ochre,backgroundColor:'rgba(200,147,34,.1)',tension:.4,fill:true},
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{title:{display:true,text:'Deaths per 100,000'}}}}
+});
+
+// CH1: risk factors (updated 2007-2021)
+new Chart(document.getElementById('ch1_risk'),{
+  type:'bar',
+  data:{
+    labels:['High fasting glucose','High BMI','Alcohol','Air pollution','High BP','Impaired kidney','High LDL','Dietary risks','Tobacco','Malnutrition'],
+    datasets:[{label:'% change 2007\u21922021',data:[35.2,52.0,48.5,-28.0,12.5,18.0,-1.5,5.8,-5.0,-32.0],
+      backgroundColor:(ctx)=>ctx.parsed.y>=0?'rgba(176,74,31,.8)':'rgba(58,107,58,.7)',
+      borderColor:(ctx)=>ctx.parsed.y>=0?C.rust:C.leaf, borderWidth:1
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'% change'}}}}
+});
+
+// CH1: life expectancy (updated through 2024)
+new Chart(document.getElementById('ch1_le'),{
+  type:'line',
+  data:{
+    labels:['2000','2005','2010','2015','2016','2019','2021','2024'],
+    datasets:[
+      {label:'Life expectancy (yrs)',data:[71.0,73.9,74.4,75.1,75.3,77.5,76.0,77.7],borderColor:C.teal,backgroundColor:'rgba(14,90,85,.08)',tension:.3,fill:true},
+      {label:'Healthy life expectancy',data:[63.4,65.7,66.1,66.6,66.8,67.3,65.5,66.7],borderColor:C.rust,backgroundColor:'rgba(176,74,31,.08)',tension:.3,fill:true},
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{beginAtZero:false,min:60}}}
+});
+
+// CH3: sources pie (updated 2022)
+new Chart(document.getElementById('ch3_sources'),{
+  type:'doughnut',
+  data:{
+    labels:['Household OOPE','Central government','State/local government','Voluntary health insurance','Compulsory contributory ins.','External financing'],
+    datasets:[{data:[40.2,35,12,8,0.5,4.3],backgroundColor:[C.rust,C.teal,C.tealD,C.ochre,C.leaf,'#8b8470'],borderColor:'#fbf7ed',borderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:11}}}},cutout:'55%'}
+});
+
+// CH3: Government health expenditure trend (2000-2023) - KEY UPDATE
+new Chart(document.getElementById('ch3_trend'),{
+  type:'line',
+  data:{
+    labels:['2000','2005','2010','2015','2016','2019','2020','2021','2022','2023'],
+    datasets:[
+      {label:'Govt health exp. % GDP',data:[2.20,2.04,1.51,1.62,1.56,1.73,2.16,2.26,1.76,1.24],borderColor:C.rust,backgroundColor:'rgba(176,74,31,.08)',tension:.3,fill:true},
+      {label:'CHE % GDP (total)',data:[null,null,null,3.6,3.9,4.0,4.27,5.19,3.98,3.68],borderColor:C.teal,backgroundColor:'rgba(14,90,85,.08)',tension:.3,fill:true},
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{min:0,max:6,title:{display:true,text:'% of GDP'}}}}
+});
+
+// CH3: OOP breakdown
+new Chart(document.getElementById('ch3_oop'),{
+  type:'bar',
+  data:{
+    labels:['Medicines','Outpatient consults','Inpatient care','Diagnostics','Other'],
+    datasets:[{data:[42,28,12,11,7],backgroundColor:[C.rust,C.ochre,C.teal,C.leaf,'#8b8470']}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'% of OOP'}}}}
+});
+
+// CH4: hospital pyramid (updated 2024 data)
+new Chart(document.getElementById('ch4_pyramid'),{
+  type:'bar',
+  data:{
+    labels:['Teaching Hospitals','Provincial General Hospitals','District General Hospitals','Base Hospitals (A & B)','Divisional Hospitals (A/B/C)','Primary Medical Care Units','Specialised hospitals'],
+    datasets:[
+      {label:'Bed strength',data:[20310,8100,11600,15200,17900,0,4500],backgroundColor:'rgba(14,90,85,.85)'},
+      {label:'Number of institutions',data:[16,3,18,71,485,485,30],backgroundColor:'rgba(176,74,31,.7)'}
+    ]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{x:{type:'logarithmic',title:{display:true,text:'count (log scale)'}}}}
+});
+
+// CH5 (was CH7): UHC tracers (updated latest data)
+new Chart(document.getElementById('ch5_uhc'),{
+  type:'bar',
+  data:{
+    labels:['Institutional delivery','Skilled birth','DTP3 immunisation','ANC 4+ visits','Family planning','Tobacco non-use','Hypertension treated','Diabetes treated'],
+    datasets:[
+      {label:'Sri Lanka (latest)',data:[99.9,99,99,95,80.6,72,36,38],backgroundColor:'rgba(14,90,85,.85)'},
+      {label:'LMIC average',data:[68,68,80,64,55,62,32,30],backgroundColor:'rgba(176,74,31,.7)'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{max:100,title:{display:true,text:'% coverage'}}}}
+});
+
+// CH7: UHC tracers detailed comparison (same chart moved to ch7)
+new Chart(document.getElementById('ch7_uhc'),{
+  type:'bar',
+  data:{
+    labels:['Institutional delivery','Skilled birth','DTP3','ANC 4+','Family planning','Tobacco non-use','HTN treated','DM treated'],
+    datasets:[
+      {label:'Sri Lanka (latest)',data:[99.9,99,99,95,80.6,72,36,38],backgroundColor:'rgba(14,90,85,.85)'},
+      {label:'LMIC average',data:[68,68,80,64,55,62,32,30],backgroundColor:'rgba(176,74,31,.7)'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{max:100,title:{display:true,text:'% coverage'}}}}
+});
+
+// CH7: catastrophic spending
+new Chart(document.getElementById('ch7_cata'),{
+  type:'bar',
+  data:{
+    labels:['Q1 (poorest)','Q2','Q3','Q4','Q5 (richest)'],
+    datasets:[
+      {label:'>10% of household exp.',data:[5.8,5.9,6.4,6.7,7.2],backgroundColor:'rgba(176,74,31,.75)'},
+      {label:'>25% of household exp.',data:[0.9,1.0,1.1,1.2,1.4],backgroundColor:'rgba(14,90,85,.75)'},
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10}}},scales:{y:{title:{display:true,text:'% of households'}}}}
+});
+
+/* ============ REFORM TIMELINE (updated with post-2018 events) ============ */
+const reforms = [
+  {y:1858,t:"Civil Medical Department established",d:"British colonial foundation of state allopathic medicine. The current curative arm traces directly to this office."},
+  {y:1926,t:"First MOH unit (Kalutara)",d:"Birth of the community-based preventive system. A Medical Officer of Health leads a defined-area team \u2014 model still in operation today across ~340-350 units."},
+  {y:1931,t:"Universal franchise granted",d:"Not a health reform per se, but voter pressure became a driving force in expanding free state health services into rural areas in the decades that followed."},
+  {y:1935,t:"Malaria epidemic response",d:"The 1934\u201335 epidemic (80,000\u2013100,000 deaths) catalysed dispersal of services and free-at-point principles that remain foundational."},
+  {y:1952,t:"Health Services Act (No. 12 of 1952)",d:"Legal backbone of the post-independence health system. Revised 1956 and 1962."},
+  {y:1977,t:"Dual Practice policy",d:"Allows state-employed medical personnel to engage in private practice outside official hours. Credited with rural retention; criticised for supply-induced demand. Now under pressure from emigration crisis."},
+  {y:1987,t:"13th Amendment \u2014 devolution",d:"Decentralisation to nine elected provincial councils. Health becomes partially devolved. Provincial councils inactive since 2019 (elections overdue since 2018)."},
+  {y:1992,t:"First National Health Policy",d:"First comprehensive PHC-based national policy. Later revised with UHC focus (2014\u201316) and current 2016\u20132025 policy."},
+  {y:2006,t:"NATA + Private Health Sector Regulation Act",d:"National Authority on Tobacco & Alcohol established; private hospitals brought into a regulatory framework."},
+  {y:2009,t:"NCD Strategic Framework",d:"National Policy and Strategic Framework for Prevention and Control of Chronic NCDs \u2014 formal acknowledgement that NCDs are the dominant burden."},
+  {y:2015,t:"Indigenous medicine under MoH + NMRA established",d:"Ayurveda, Siddha, Unani and Deshiya Chikitsa brought under MoH purview. NMRA created for drug registration, pricing, quality."},
+  {y:2018,t:"Policy on Health Service Delivery for UHC",d:"The pre-crisis pivot. Introduces the 'shared care cluster' linking PMCUs / Divisional Hospitals / Apex hospital. 5-year action framework 2018\u20132024."},
+  {y:2020,t:"COVID-19 pandemic response",d:"Initial 'Zero-COVID' strategy succeeded in 2020 but was abandoned. Delta wave caused 30,000+ excess deaths. By March 2022, 95% two-dose vaccination achieved \u2014 among highest in region."},
+  {y:2022,t:"Economic collapse & health crisis",d:"Sovereign debt default. 150+ essential medicines out of stock. 500 doctors emigrated in 8 months. Fuel/power shortages crippled hospitals. IMF $2.9B bailout approved March 2023."},
+  {y:2023,t:"National Digital Health Blueprint",d:"Published November 2023. Roadmap for digitalizing patient information, integrating siloed systems, and enabling telemedicine. HHIMS in 80 hospitals."},
+  {y:2024,t:"NPP government + recovery begins",d:"New government elected Sept\u2013Nov 2024. Pledged 3% GDP for health. Health Minister Dr. Nalinda Jayatissa. ADB $200M + WB $150M health programs launched. Telemedicine guidelines issued."},
+  {y:2025,t:"UHC Policy Analysis + NMRA pricing reform",d:"Comprehensive UHC policy review launched August 2025. NMRA gained powers to set Maximum Retail Prices for all medicines (Oct 2025). Health Minister's indictment."},
+];
+
+const tlRow = document.getElementById('tlRow');
+const tlDetail = document.getElementById('tlDetail');
+reforms.forEach((r,i)=>{
+  const el = document.createElement('div');
+  el.className = 'tl-event';
+  el.innerHTML = `<div class="tl-dot"></div><div class="tl-year">${r.y}</div><div class="tl-label">${r.t.split(' ').slice(0,3).join(' ')}\u2026</div>`;
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.tl-event').forEach(e=>e.classList.remove('active'));
+    el.classList.add('active');
+    tlDetail.innerHTML = `<h5>${r.y} \u00b7 ${r.t}</h5>${r.d}`;
+  });
+  tlRow.appendChild(el);
+});
+
+/* ============ CONCEPT MAP (SVG) ============ */
+const svg = document.getElementById('conceptSvg');
+const nodes = [
+  // building blocks (teal)
+  {id:'gov',label:'Governance',x:500,y:80,c:C.teal,r:42,to:'#ch2'},
+  {id:'fin',label:'Financing',x:160,y:180,c:C.teal,r:42,to:'#ch3'},
+  {id:'wf',label:'Workforce',x:160,y:380,c:C.teal,r:42,to:'#ch4'},
+  {id:'inf',label:'Infrastructure',x:500,y:520,c:C.teal,r:42,to:'#ch4'},
+  {id:'svc',label:'Services',x:840,y:380,c:C.teal,r:42,to:'#ch5'},
+  {id:'his',label:'Info systems',x:840,y:180,c:C.teal,r:42,to:'#ch2'},
+  // friction (rust)
+  {id:'oop',label:'OOP rising',x:300,y:300,c:C.rust,r:34,to:'#ch3'},
+  {id:'byp',label:'Bypassing',x:680,y:450,c:C.rust,r:34,to:'#ch5'},
+  {id:'frag',label:'Fragmented data',x:720,y:280,c:C.rust,r:34,to:'#ch2'},
+  {id:'ageing',label:'Ageing + NCDs',x:500,y:280,c:C.rust,r:40,to:'#ch1'},
+  // reform levers (ochre)
+  {id:'cluster',label:'Shared care cluster',x:430,y:400,c:C.ochre,r:38,to:'#ch6'},
+  {id:'fiscal',label:'Fiscal space',x:280,y:130,c:C.ochre,r:34,to:'#ch3'},
+  // outcomes (leaf)
+  {id:'uhc',label:'UHC 67/100',x:580,y:160,c:C.leaf,r:36,to:'#ch7'},
+  // crisis shocks (crimson) - NEW
+  {id:'drain',label:'Brain drain',x:300,y:480,c:C.crimson,r:36,to:'#ch4'},
+  {id:'crisis',label:'Economic crisis',x:700,y:520,c:C.crimson,r:38,to:'#ch3'},
+];
+const edges = [
+  ['gov','fin'],['gov','wf'],['gov','his'],['gov','svc'],
+  ['fin','oop'],['oop','byp'],['fin','fiscal'],['fiscal','uhc'],
+  ['ageing','svc'],['ageing','byp'],['ageing','cluster'],
+  ['wf','cluster'],['svc','cluster'],['inf','cluster'],['cluster','uhc'],
+  ['his','frag'],['frag','cluster'],['svc','byp'],['gov','uhc'],
+  // crisis connections - NEW
+  ['crisis','fin'],['crisis','drain'],['crisis','oop'],
+  ['drain','wf'],['drain','svc'],['crisis','svc'],
+  ['fiscal','crisis'],['ageing','crisis'],
+];
+const nodeMap = Object.fromEntries(nodes.map(n=>[n.id,n]));
+// edges first
+edges.forEach(([a,b])=>{
+  const A=nodeMap[a],B=nodeMap[b];
+  const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',A.x);line.setAttribute('y1',A.y);
+  line.setAttribute('x2',B.x);line.setAttribute('y2',B.y);
+  line.setAttribute('stroke','#d6cdba');line.setAttribute('stroke-width','1.5');
+  line.setAttribute('data-from',a);line.setAttribute('data-to',b);
+  svg.appendChild(line);
+});
+// nodes
+nodes.forEach(n=>{
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.style.cursor='pointer';
+  const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('cx',n.x);circle.setAttribute('cy',n.y);circle.setAttribute('r',n.r);
+  circle.setAttribute('fill',n.c);circle.setAttribute('fill-opacity','.92');
+  circle.setAttribute('stroke','#fbf7ed');circle.setAttribute('stroke-width','3');
+  const text=document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x',n.x);text.setAttribute('y',n.y+4);
+  text.setAttribute('text-anchor','middle');
+  text.setAttribute('fill','#fff');text.setAttribute('font-size','12');
+  text.setAttribute('font-weight','600');text.setAttribute('font-family',"'Inter',sans-serif");
+  text.textContent = n.label;
+  g.appendChild(circle);g.appendChild(text);
+  g.addEventListener('mouseenter',()=>{
+    circle.setAttribute('fill-opacity','1');
+    circle.setAttribute('r',n.r+4);
+    svg.querySelectorAll('line').forEach(l=>{
+      if(l.getAttribute('data-from')===n.id || l.getAttribute('data-to')===n.id){
+        l.setAttribute('stroke',C.rust);l.setAttribute('stroke-width','2.5');
+      }else{
+        l.setAttribute('stroke-opacity','.25');
+      }
+    });
+  });
+  g.addEventListener('mouseleave',()=>{
+    circle.setAttribute('fill-opacity','.92');
+    circle.setAttribute('r',n.r);
+    svg.querySelectorAll('line').forEach(l=>{
+      l.setAttribute('stroke','#d6cdba');l.setAttribute('stroke-width','1.5');l.setAttribute('stroke-opacity','1');
+    });
+  });
+  g.addEventListener('click',()=>{location.hash=n.to});
+  svg.appendChild(g);
+});
+
+/* ============ SEARCH ============ */
+const searchBox = document.getElementById('searchBox');
+const allSections = document.querySelectorAll('section.chapter');
+searchBox.addEventListener('input',(e)=>{
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.hl').forEach(el=>{
+    const p=el.parentNode;p.replaceChild(document.createTextNode(el.textContent),el);p.normalize();
+  });
+  if(!q){allSections.forEach(s=>s.classList.remove('no-match'));return}
+  allSections.forEach(s=>{
+    const k = (s.dataset.keywords||'') + ' ' + s.innerText;
+    if(k.toLowerCase().includes(q)){
+      s.classList.remove('no-match');
+    }else{
+      s.classList.add('no-match');
+    }
+  });
+});
+
+/* ============ RANDOM CONCEPT ============ */
+const concepts = [
+  {chip:'CONTEXT',title:'Population decline: a historic first',body:'Sri Lanka\'s population growth turned <strong>negative (-0.55%)</strong> in 2024 for the first time in modern history. The country is ageing faster than any neighbour: 65+ rose from 10.8% to 12.6% in just 5 years. Implication: demand for aged care, NCD support, and pension/health financing will surge.',jump:'#ch1'},
+  {chip:'NCD CRISIS',title:'Diabetes prevalence doubled',body:'STEPS 2021 found <strong>14.6%</strong> of adults have diabetes &mdash; double the 7.4% recorded in 2015. Hypertension affects 34.8%, and overweight/obesity exceeds 50%. Only 12.4% of diabetics on treatment achieve HbA1c &lt;7%. Sri Lanka faces an NCD treatment emergency masked by strong MCH indicators.',jump:'#ch1'},
+  {chip:'FINANCING',title:'Government health spending collapsed',body:'From 2.26% of GDP (2021) to just <strong>1.24% (2023)</strong> &mdash; a 45% real decline during the economic crisis. The new NPP government has pledged to raise this to 3% of GDP, which would more than double current spending. Without it, reform ambitions are constrained.',jump:'#ch3'},
+  {chip:'WORKFORCE',title:'The brain drain: 1,489 doctors emigrated',body:'Between 2022 and 2024, <strong>1,489 doctors left Sri Lanka</strong> &mdash; 10x the pre-crisis rate. 25% of government doctors have taken foreign licensing exams. The specialist attrition rate is 6.1% per annum. This is the single biggest threat to the health system\'s future capacity.',jump:'#ch4'},
+  {chip:'GOVERNANCE',title:'Provincial councils inactive since 2019',d:'The 13th Amendment devolved health to provincial councils, but <strong>elections have not been held since 2014</strong>. The central MoH has been managing all levels de facto. This governance vacuum complicates accountability and service delivery.',jump:'#ch2'},
+  {chip:'STRUCTURE',title:'Bypassing still rampant',body:'Patients routinely skip primary facilities for higher-level hospitals. Drivers: perceived facilities, medicine availability, provider competency, quality. The shared care cluster model (2018) is now being scaled with $350M from ADB and World Bank to address this.',jump:'#ch5'},
+  {chip:'REFORM',title:'UHC Policy Analysis launched August 2025',body:'The first comprehensive review of Sri Lanka\'s 2018 UHC policy. Found strong preventive coverage but critical gaps in NCD treatment. The launch was attended by the Minister of Health, DGHS, and WHO Representative. An acceleration workshop followed.',jump:'#ch6'},
+  {chip:'OUTCOME',title:'Life expectancy 77.7 years (2024)',body:'Women live ~7 years longer than men. But healthy life expectancy is 66.7 &mdash; and the LE-HLE gap is widening, meaning more years lived with ill health. Sri Lanka remains the \'good health at low cost\' case, but the cost is now lower than ever.',jump:'#ch7'},
+  {chip:'CRISIS',title:'150+ medicines out of stock (Oct 2022)',body:'At the peak of the economic crisis, endotracheal tubes for newborns, dialysis fluid, and 150+ essential medicines were unavailable. Fuel shortages reduced ambulances from 3 to 1 per station. Power cuts forced surgeries by phone light. The system survived but was profoundly stressed.',jump:'#ch8'},
+  {chip:'TENSION',title:'Tertiary spending vs. primary care priority',body:'About 40% of government health spending sits at tertiary level &mdash; even though the reform priority is primary care. The shared care cluster model is the attempted structural fix, but requires more funds and workforce to shift the balance.',jump:'#ch7'},
+  {chip:'DIGITAL HEALTH',title:'National Digital Health Blueprint (2023)',body:'Published November 2023, the Blueprint maps Sri Lanka\'s digital health future. HHIMS is already in 80 hospitals with 9.5M+ patients registered. Telemedicine guidelines were issued April 2024. The missing piece: interoperability across the MOH-curative divide.',jump:'#ch2'},
+  {chip:'RECOVERY',title:'NPP government pledges 3% GDP for health',body:'Elected September-November 2024, the National People\'s Power government made health a priority. The pledge to raise spending from 1.24% to 3% of GDP would transform the system\'s capacity. ADB ($200M) and World Bank ($150M) programs are now active.',jump:'#ch6'},
+  {chip:'EQUITY',title:'UHC Service Coverage Index: 67/100',body:'Sri Lanka scores above the SE Asia average (62) on the UHC SCI. Skilled birth attendance (99%), institutional deliveries (99.9%), and immunization (99%) are world-class. But the NCD treatment gap means the score hides critical inequities in who actually receives care.',jump:'#ch7'},
+  {chip:'MEDICINES',title:'NMRA gains pricing powers (Oct 2025)',body:'Parliament approved a major reform giving the NMRA authority to set Maximum Retail Prices for <strong>all medicines</strong> (expanded from 60). 500 medicines were initially price-controlled. This could significantly reduce OOP spending on medicines, the largest component of household health expenditure.',jump:'#ch6'},
+  {chip:'MENTAL HEALTH',title:'Only 5 child psychiatrists for 21M people',body:'Sri Lanka allocates only 1.6% of its health budget to mental health. During the economic crisis, 30% of adults reported mental health impacts and 15% of adolescents considered suicide. The workforce gap in mental health is among the most critical in the system.',jump:'#ch5'},
+];
+
+const modal = document.getElementById('randomModal');
+const randChip = document.getElementById('randChip');
+const randTitle = document.getElementById('randTitle');
+const randBody = document.getElementById('randBody');
+const randJump = document.getElementById('randJump');
+function showRandom(){
+  const r = concepts[Math.floor(Math.random()*concepts.length)];
+  randChip.textContent = r.chip;
+  randTitle.textContent = r.title;
+  randBody.innerHTML = r.body;
+  randJump.onclick = ()=>{closeRandom();setTimeout(()=>{location.hash=r.jump},100)};
+  modal.classList.add('show');
+}
+function closeRandom(){modal.classList.remove('show')}
+document.getElementById('randomBtn').addEventListener('click',showRandom);
+modal.addEventListener('click',(e)=>{if(e.target===modal)closeRandom()});
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape')closeRandom();
+  if(e.key==='r' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName))showRandom();
+  if(e.key==='/' && document.activeElement!==searchBox){e.preventDefault();searchBox.focus()}
+});
+</script>
+</body>
+</html>
